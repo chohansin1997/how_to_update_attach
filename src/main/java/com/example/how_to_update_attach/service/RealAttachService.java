@@ -46,7 +46,7 @@ public class RealAttachService {
 		String filename = ofNullable(attach.getOriginalFilename()).orElse(null); // 파일 이름
 		String contentType = ofNullable(attach.getContentType()).orElse(null); // 파일 Content Type
 		Long size = of(attach.getSize()).orElse(null); // 파일 용량
-
+																															//소문자로 변환
 		String directory = ofNullable(target).orElse(PATH_DEFAULT).toLowerCase(ROOT); // 파일이 업로드 될 디렉토리
 		String extension = getFilenameExtension(filename); // 파일 확장자
 		UUID uuid = UUID.randomUUID(); // 업로드될 파일 이름이 중복되지 않기 위한 UUID
@@ -54,6 +54,7 @@ public class RealAttachService {
 		String date = now().format(DateTimeFormatter.ofPattern("yyyyMMdd")); // 오늘 날짜
 		boolean mkdirs = true; // 디렉토리 생성 결과
 		File path = get(PATH_UPLOAD, directory, date).toFile(); // 업로드 디렉토리 경로
+		// ex. get("folder", "picture","test" .. ).toFile() 이런식이라면 folder\picture\test 에 파일이 저장됨 *무한하게 추가할수 있음
 
 		if (!path.exists()) { // 경로의 디렉토리가 없는지 체크
 			mkdirs = path.mkdirs(); // 디렉토리 생성

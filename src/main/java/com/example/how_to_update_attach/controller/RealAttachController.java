@@ -23,8 +23,10 @@ public class RealAttachController {
 
 	@PostMapping(value = "/uploadFile")
 	public String uploadFile(MultipartFile file) throws IOException {
-
-		Long attachId = service.uploadAttach(file);
+		//   중간 경로 추가시
+//		String category = "test";
+//		service.uploadAttach(category, file);
+		service.uploadAttach(file);
 
 		return "/test";
 	}
